@@ -1,0 +1,111 @@
+<!-- navegacion -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" routerLink="inicio">Tienda</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto" *ngIf="user$ | async as user; else login">
+                <li class="nav-item nav-desconectar">
+                    <a class="nav-link" (click)="signOut()" *ngIf="user">Desconectar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">{{user?.email}}</a>
+                </li>
+            </ul>
+            <ng-template #login>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item nav-ingresar">
+                        <a class="nav-link" data-toggle="modal" 
+                        data-target="#ingresar-modal">Ingresar</a>
+                    </li>
+                    <li class="nav-item nav-ingresar">
+                        <a class="nav-link" data-toggle="modal" 
+                        data-target="#registro-modal">Registrar</a>
+                </ul>
+            </ng-template>
+        </div>
+    </div>
+  </nav>
+  <!-- modal ingresar -->
+  <div class="modal" id="ingresar-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ingresar</h5>
+                <button type="button" #closebuttonlogin class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Mensaje de error de firebase -->
+                <div class="form-control-feedback">
+                    <p *ngIf="auth.err" class="alert alert-warning" role="alert">{{auth.err}}</p>
+                </div>
+                <form [formGroup]='userForm' (ngSubmit)='signIn()'>
+                    <div class="form-group">
+                        <input type="text" class="form-control" formControlName='email'
+                            placeholder="Correo electronico" required>
+                        <!-- Mensajes de error validadores-->
+                        <div class="form-control-feedback"
+                            *ngIf="userForm.get('email').errors && userForm.get('email').touched">
+                            <p *ngIf="userForm.get('email').errors.required" class="alert alert-warning" role="alert">Correo es requerido</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" formControlName='password'
+                            placeholder="Contraseña" required>
+                        <!-- Mensajes de error validadores-->
+                        <div class="form-control-feedback"
+                            *ngIf="userForm.get('password').errors && userForm.get('password').touched">
+                            <p *ngIf="userForm.get('password').errors.required" class="alert alert-warning" role="alert">Contraseña es requerida</p>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-secondary btn-block" [disabled]="!userForm.valid">Ingresar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal registro -->
+<div class="modal" id="registro-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Registro</h5>
+                <button type="button" #closebuttonregister class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Mensaje de error de firebase -->
+                <div class="form-control-feedback">
+                    <p *ngIf="auth.err" class="alert alert-warning" role="alert">{{auth.err}}</p>
+                </div>
+                <form [formGroup]='userForm' (ngSubmit)='signUp()'>
+                    <div class="form-group">
+                        <input type="text" class="form-control" formControlName='email'
+                            placeholder="Correo electronico" required>
+                        <!-- Mensajes de error validadores-->
+                        <div class="form-control-feedback"
+                            *ngIf="userForm.get('email').errors && userForm.get('email').touched">
+                            <p *ngIf="userForm.get('email').errors.required" class="alert alert-warning" role="alert">Correo es requerido</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" formControlName='password'
+                            placeholder="Contraseña" required>
+                        <!-- Mensajes de error validadores-->
+                        <div class="form-control-feedback"
+                            *ngIf="userForm.get('password').errors && userForm.get('password').touched">
+                            <p *ngIf="userForm.get('password').errors.required" class="alert alert-warning" role="alert">Contraseña es requerida</p>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Registrar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

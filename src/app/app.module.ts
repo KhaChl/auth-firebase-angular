@@ -3,16 +3,28 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+/* Firebase */
+import { AngularFireModule} from '@angular/fire';
+import { AngularFireAuth} from '@angular/fire/auth';
+import { environment } from '../environments/environment.prod';
+/* Formulario reactivo */
+import { ReactiveFormsModule } from '@angular/forms';
+/* Componentes */
+import { NavbarComponent } from './components/navbar/navbar.component';
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [AngularFireAuth],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

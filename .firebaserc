@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "tienda-26d73": {
+      "hosting": {
+        "tienda": [
+          "tienda-26d73"
+        ]
+      }
+    }
+  }
+}

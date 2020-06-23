@@ -1,0 +1,19 @@
+{
+  "hosting": [
+    {
+      "target": "tienda",
+      "public": "dist/tienda",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ]
+}
